@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizador de VIDEOS</title>
+  <link rel="icon" href="assets/gufy.ico" type="image/x-icon">
+</head>
+<body>
+  <h1>Visualizador de Imágenes y Videos</h1>
+  <button id="btnImagen">Ver Imagen</button>
+  <button id="btnVideo">Ver Video</button>
+  <br><br>
+  <img id="imagen" alt="Imagen" style="max-width: 500px; display: none;" />
+  <br><br>
+  <video id="video" controls style="max-width: 500px; display: none;"></video>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    const btnImagen = document.getElementById('btnImagen');
+    const btnVideo = document.getElementById('btnVideo');
+    const img = document.getElementById('imagen');
+    const video = document.getElementById('video');
+
+    btnImagen.addEventListener('click', () => {
+      socket.emit('solicitarImagen');
+    });
+
+    btnVideo.addEventListener('click', () => {
+      socket.emit('solicitarVideo');
+    });
+
+    socket.on('imagen', (data) => {
+      const blob = new Blob([data], { type: 'image/jpeg' });
+      const url = URL.createObjectURL(blob);
+      img.src = url;
+      img.style.display = 'block';
+      video.style.display = 'none';
+    });
+
+    socket.on('video', (data) => {
+      const blob = new Blob([data], { type: 'video/mp4' });
+      const url = URL.createObjectURL(blob);
+      video.src = url;
+      video.style.display = 'block';
+      img.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
