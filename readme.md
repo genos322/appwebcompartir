@@ -2,7 +2,7 @@
 
 ---
 
-**Bienvenido a la plataforma donde compartir y descubrir videos es fácil y rápido.**
+**Bienvenido a la plataforma donde compartir y descubrir videos es fácil y rápido.xd**
 
 ---
 

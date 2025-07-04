@@ -15,7 +15,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 // Servir archivos estáticos desde /public
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 // console.log(path.join(__dirname, 'public/src'));
 io.on('connection', (socket) => {
   console.log('Cliente conectado');
@@ -43,6 +43,11 @@ io.on('connection', (socket) => {
   });
 });
 
+//routes
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+const port = 3000;
 server.listen(3000, () => {
-  console.log('Servidor escuchando en http://localhost:3000');
+  console.log(`Servidor escuchando en http://localhost:${port}`);
 });
